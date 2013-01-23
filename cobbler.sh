@@ -1,14 +1,16 @@
 #! /bin/bash 
 
-if  [ "$#" != 4 ]
+if  [ "$#" != 6 ]
 then 
-	echo "Usage: $0 {cobbler server host name or IP address} {cobbler system name} {host name} {boot profile name}"
+	echo "Usage: $0 {cobbler server host name or IP address} {user name} {password} {cobbler system name} {host name} {boot profile name}"
 	exit
 fi
 cobbler_server=$1
-system_name=$2
-host_name=$3
-profile=$4
+user_name=$2
+password=$3
+system_name=$4
+host_name=$5
+profile=$6
 get_head () {
 echo -e "POST /cobbler_api HTTP/1.1
 Host: 10.251.18.11
@@ -38,10 +40,10 @@ login_req="<?xml version='1.0'?>
 <methodName>login</methodName>
 <params>
 <param>
-<value><string>merlin</string></value>
+<value><string>$user_name</string></value>
 </param>
 <param>
-<value><string>swordinthestone</string></value>
+<value><string>$password</string></value>
 </param>
 </params>
 </methodCall>" 
